@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zubair Trade Shop - Client Submission</title>
+  <style>
+    :root {
+      --primary-color: #2e7d32;
+      --primary-dark: #1b5e20;
+      --secondary-color: #f5f5f5;
+      --error-color: #d32f2f;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    h1, h2 {
+      text-align: center;
+      color: var(--primary-dark);
+    }
+    
+    h1 {
+      margin-bottom: 10px;
+    }
+    
+    .section {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 25px;
+    }
+    
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #444;
+    }
+    
+    .required:after {
+      content: " *";
+      color: var(--error-color);
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border 0.3s;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+    }
+    
+    input[type="file"] {
+      padding: 8px;
+    }
+    
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      margin-top: 20px;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    
+    .packages-table {
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    
+    th {
+      background-color: var(--secondary-color);
+      font-weight: bold;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .error-message {
+      color: var(--error-color);
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    
+    .success-message {
+      color: var(--primary-color);
+      background-color: #e8f5e9;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+    
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .payment-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .payment-method {
+      flex: 1;
+      min-width: 200px;
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    
+    .payment-method h3 {
+      margin-top: 0;
+      color: var(--primary-dark);
+    }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      
+      .section {
+        padding: 15px;
+      }
+      
+      input, textarea, select {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Zubair Trade Shop</h1>
+  <p style="text-align: center; color: #555;">Submit your ads and mobile package requests</p>
+
+  <div class="section">
+    <h2>Step 1: Make a Payment</h2>
+    <div class="payment-methods">
+      <div class="payment-method">
+        <h3>Mobile Wallets</h3>
+        <p><strong>Easypaisa / JazzCash / Zindigi:</strong><br />
+        Name: Muhammad<br />
+        Number: 0302-8020735</p>
+      </div>
+      <div class="payment-method">
+        <h3>Bank Transfers</h3>
+        <p><strong>NBP (National Bank of Pakistan):</strong><br />
+        IBAN: PK44NBPA0388004158049006</p>
+        <p><strong>HBL:</strong><br />
+        IBAN: PK45HABB0011137902980103</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Step 2: Submit Your Ad</h2>
+    <form id="submissionForm">
+      <label for="name" class="required">Full Name</label>
+      <input type="text" id="name" placeholder="Enter your full name" required />
+      <div id="name-error" class="error-message"></div>
+
+      <label for="phone" class="required">Phone Number</label>
+      <input type="tel" id="phone" placeholder="0300XXXXXXX" pattern="03[0-9]{9}" required />
+      <div id="phone-error" class="error-message"></div>
+
+      <label for="product" class="required">What are you selling?</label>
+      <textarea id="product" rows="4" placeholder="Enter product details including brand, model, condition, price, etc." required></textarea>
+      <div id="product-error" class="error-message"></div>
+
+      <label for="category" class="required">Select Category</label>
+      <select id="category" required>
+        <option value="">-- Select --</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="furniture">Furniture</option>
+        <option value="easyload">Easyload</option>
+        <option value="packages">Mobile Packages</option>
+        <option value="other">Other</option>
+      </select>
+      <div id="category-error" class="error-message"></div>
+
+      <div id="network-fields" class="hidden">
+        <label for="network" class="required">Network</label>
+        <select id="network">
+          <option value="">-- Select Network --</option>
+          <option value="jazz">Jazz</option>
+          <option value="telenor">Telenor</option>
+          <option value="ufone">Ufone</option>
+          <option value="zong">Zong</option>
+        </select>
+        <div id="network-error" class="error-message"></div>
+
+        <label for="amount" class="required">Amount (PKR)</label>
+        <input type="number" id="amount" placeholder="Enter amount" min="1" />
+        <div id="amount-error" class="error-message"></div>
+      </div>
+
+      <label for="screenshot" class="required">Upload Payment Screenshot</label>
+      <input type="file" id="screenshot" accept="image/*,.pdf" required />
+      <div id="screenshot-error" class="error-message"></div>
+
+      <label for="image" class="required">Upload Product Image</label>
+      <input type="file" id="image" accept="image/*" required />
+      <div id="image-error" class="error-message"></div>
+
+      <button type="submit" id="submitBtn">
+        <span class="loading" id="loadingSpinner"></span>
+        Submit to Zubair Trade
+      </button>
+      
+      <div class="success-message" id="successMessage">
+        Your submission has been received! Redirecting to WhatsApp...
+      </div>
+    </form>
+  </div>
+
+  <div class="section packages-table">
+    <h2>All Mobile Packages</h2>
+    <div style="overflow-x: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Network</th>
+            <th>Package</th>
+            <th>Details</th>
+            <th>Price (PKR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Jazz</td><td>Daily WhatsApp</td><td>100MB + 1200 SMS</td><td>7</td></tr>
+          <tr><td>Jazz</td><td>Weekly YouTube & Social</td><td>5GB + WhatsApp/FB</td><td>120</td></tr>
+          <tr><td>Telenor</td><td>Daily Social Pack</td><td>70MB Facebook/WhatsApp</td><td>8</td></tr>
+          <tr><td>Telenor</td><td>4G Monthly Lite</td><td>6GB</td><td>170</td></tr>
+          <tr><td>Ufone</td><td>Super Card Mini</td><td>500 MB + 500 On-net</td><td>330</td></tr>
+          <tr><td>Ufone</td><td>Monthly Light</td><td>1GB + Socials</td><td>250</td></tr>
+          <tr><td>Zong</td><td>Daily Basic</td><td>100MB</td><td>17</td></tr>
+          <tr><td>Zong</td><td>Monthly Super Card</td><td>5GB + 1000 On-net</td><td>499</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('submissionForm');
+      const categorySelect = document.getElementById('category');
+      const networkFields = document.getElementById('network-fields');
+      const submitBtn = document.getElementById('submitBtn');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const successMessage = document.getElementById('successMessage');
+      
+      // Toggle network fields based on category selection
+      categorySelect.addEventListener('change', function() {
+        const selectedCategory = this.value;
+        const isNetworkRelated = ['easyload', 'packages'].includes(selectedCategory);
+        
+        networkFields.classList.toggle('hidden', !isNetworkRelated);
+        
+        // Set required fields
+        document.getElementById('network').required = isNetworkRelated;
+        document.getElementById('amount').required = isNetworkRelated;
+      });
+      
+      // Form validation
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (validateForm()) {
+          submitForm();
+        }
+      });
+      
+      function validateForm() {
+        let isValid = true;
+        const phoneRegex = /^03[0-9]{9}$/;
+        
+        // Clear previous errors
+        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+        
+        // Validate name
+        const name = document.getElementById('name').value.trim();
+        if (!name) {
+          document.getElementById('name-error').textContent = 'Please enter your full name';
+          isValid = false;
+        }
+        
+        // Validate phone
+        const phone = document.getElementById('phone').value.trim();
+        if (!phone) {
+          document.getElementById('phone-error').textContent = 'Please enter your phone number';
+          isValid = false;
+        } else if (!phoneRegex.test(phone)) {
+          document.getElementById('phone-error').textContent = 'Please enter a valid Pakistani phone number (e.g. 03001234567)';
+          isValid = false;
+        }
+        
+        // Validate product
+        const product = document.getElementById('product').value.trim();
+        if (!product) {
+          document.getElementById('product-error').textContent = 'Please enter product details';
+          isValid = false;
+        } else if (product.length < 10) {
+          document.getElementById('product-error').textContent = 'Please provide more details about your product';
+          isValid = false;
+        }
+        
+        // Validate category
+        const category = document.getElementById('category').value;
+        if (!category) {
+          document.getElementById('category-error').textContent = 'Please select a category';
+          isValid = false;
+        }
+        
+        // Validate network fields if visible
+        if (!networkFields.classList.contains('hidden')) {
+          const network = document.getElementById('network').value;
+          if (!network) {
+            document.getElementById('network-error').textContent = 'Please select a network';
+            isValid = false;
+          }
+          
+          const amount = document.getElementById('amount').value;
+          if (!amount) {
+            document.getElementById('amount-error').textContent = 'Please enter an amount';
+            isValid = false;
+          } else if (amount <= 0) {
+            document.getElementById('amount-error').textContent = 'Amount must be greater than 0';
+            isValid = false;
+          }
+        }
+        
+        // Validate files
+        const screenshot = document.getElementById('screenshot').files[0];
+        if (!screenshot) {
+          document.getElementById('screenshot-error').textContent = 'Please upload payment proof';
+          isValid = false;
+        }
+        
+        const image = document.getElementById('image').files[0];
+        if (!image) {
+          document.getElementById('image-error').textContent = 'Please upload product image';
+          isValid = false;
+        }
+        
+        return isValid;
+      }
+      
+      function submitForm() {
+        // Show loading state
+        submitBtn.disabled = true;
+        loadingSpinner.style.display = 'inline-block';
+        
+        // Simulate form processing (in a real app, you would upload files here)
+        setTimeout(() => {
+          // Get form values
+          const name = document.getElementById('name').value.trim();
+          const phone = document.getElementById('phone').value.trim();
+          const product = document.getElementById('product').value.trim();
+          const category = document.getElementById('category').value;
+          const network = document.getElementById('network').value;
+          const amount = document.getElementById('amount').value;
+          
+          // Prepare WhatsApp message
+          let message = `*Zubair Trade Ad Submission*%0A%0A` +
+                        `*Name:* ${name}%0A` +
+                        `*Phone:* ${phone}%0A` +
+                        `*Product:* ${product}%0A` +
+                        `*Category:* ${category}`;
+          
+          if (network && amount) {
+            message += `%0A*Network:* ${network}%0A*Amount:* ${amount} PKR`;
+          }
+          
+          // Show success message
+          loadingSpinner.style.display = 'none';
+          successMessage.style.display = 'block';
+          
+          // Redirect to WhatsApp after 3 seconds
+          setTimeout(() => {
+            const phoneNumber = '923028020735';
+            const url = `https://wa.me/${phoneNumber}?text=${message}`;
+            window.open(url, '_blank');
+            
+            // Additional redirect (optional)
+            window.location.href = 'https://forms.gle/QrZNYnBLXrHJbRj49';
+          }, 3000);
+        }, 1500);
+      }
+      
+      // Real-time phone number validation
+      document.getElementById('phone').addEventListener('input', function() {
+        const phone = this.value.trim();
+        const errorElement = document.getElementById('phone-error');
+        
+        if (phone && !/^03[0-9]{0,9}$/.test(phone)) {
+          errorElement.textContent = 'Phone must start with 03 and have 11 digits';
+        } else {
+          errorElement.textContent = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
